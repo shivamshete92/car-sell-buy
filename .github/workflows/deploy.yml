@@ -10,28 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Setup Node.js (use Node 18 for react-scripts v5)
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
-      # Step 3: Install dependencies
       - name: Install Dependencies
-        run: |
-          npm ci   # cleaner than npm install in CI
-          npm audit fix --force || true
+        run: npm ci
 
-      # Step 4: Build React App
       - name: Build React App
         run: npm run build
 
-      # Step 5: Copy build folder to EC2
       - name: Copy Build to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -41,7 +34,6 @@ jobs:
           source: "build/*"
           target: "/var/www/car-sell-buy"
 
-      # Step 6: Restart Nginx
       - name: Restart Nginx on EC2
         uses: appleboy/ssh-action@v0.1.10
         with:
