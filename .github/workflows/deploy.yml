@@ -42,3 +42,11 @@ jobs:
           target: "/var/www/car-sell-buy"
 
       # Step 6: Restart Nginx
+      - name: Restart Nginx on EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo systemctl restart nginx
