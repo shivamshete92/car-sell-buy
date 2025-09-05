@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      EC2_HOST: 16.170.167.44
+      EC2_HOST:
       EC2_USER: ec2-user
       EC2_SSH_KEY: |
       
