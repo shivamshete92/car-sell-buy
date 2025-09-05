@@ -8,12 +8,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    env:
-      EC2_HOST:
-      EC2_USER: ec2-user
-      EC2_SSH_KEY: |
-      
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,12 +15,21 @@ jobs:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ env.EC2_HOST }}
-          username: ${{ env.EC2_USER }}
-          key: ${{ env.EC2_SSH_KEY }}
+          host: 16.16.172.140
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
           script: |
-            cd /home/ec2-user/apps/cartech-ui
+            # go to app directory
+            cd /home/ubuntu/car-sell-buy || exit 1
+
+            # fetch latest code
             git pull origin main
-            npm install --omit=dev
-            pm2 restart cartech-ui || pm2 start npm --name "cartech-ui" -- start
-            pm2 save
+
+            # install dependencies
+            npm install --production
+
+            # build frontend if exists
+            npm run build || true
+
+            # restart app using PM2
+            pm2 restart car-sell-buy || pm2 start npm --name "car-sell-buy" -- start
