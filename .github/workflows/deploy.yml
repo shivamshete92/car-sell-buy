@@ -12,33 +12,7 @@ jobs:
       EC2_HOST: 16.170.167.44
       EC2_USER: ec2-user
       EC2_SSH_KEY: |
-        -----BEGIN RSA PRIVATE KEY-----
-MIIEpAIBAAKCAQEAskgmMZVek+zgDtkCjbV9eq712qrovZdWVY1qkPCCqQb4fpql
-v+ely8y6lr/5ZBHk2Ga65GPSbOxSwWGVq/bzF2niEffQHuXNQ6wKxB2GOKZiwjX7
-sq3T4Fz29kaYjySfFYvBb6cKbBuQgTGw1Q9uO+fFBLYBfmIsKSvlMe3x0W4M5OGp
-x5iBodUTjR8FWOFtcrGpvoQtsbcMly3beC8bwfEkOopWMY6OsEc4ll0RyoIStOJI
-1r9czLReZ0/dgX1D1bdS1wfutTQgZnd3aasbXkqj4wfstqXMcmwNhR4vRkBuuS+j
-6Z4KRRJzpMEWQDwnegdm+7qoQL1JtinhEpho4QIDAQABAoIBAQCHxBHx6IIhvF3U
-cMZVDEUGTH7Fiym6V6lTdWIWBlI6TiimoTZgMhQ8Yygk7QUKg+X2NiVVD/+LG1za
-D2pfjqwIxIV4kXNYVEBArJ92QdWZBnxm0Z1fsKiNT75yRcigGY9cZRVl5Zs2QLeG
-60RyvFGCJToQIFp62GAw6lCb+UwR46tiioDZDjLBq+8Vf/cOFHrcu48UjDRAU4es
-Vokhqxn7GL7rRep9Z7Tw1BxiZvnorz9ifYHj8+1nvzf9iauVEwLtcC+XF/8ADLm0
-Yo0OukD4uN0V7hgfvwuMgVGdBfG6SHKmInehYxlWlDzvkfbyIPnP4s2tFazbG6Jz
-lcvNZrQBAoGBANcAVfA5ZNWgwixIH2Uirp2AWi+6tHakVy6Vt2++fvYcrTW3wh2R
-JmJqacKpiD63FtqYktd0nzTeghpljeyLpYSPhQUaMdm20tt5kmI+8ipHyxz29Q67
-kRRM0DCYDWla4Mur5LNmOTr+vkMxarqqSlsrSRYPZkxEf/wwbqs12mkxAoGBANRH
-Sb4smpHDPXQOE8/8sIpNnN5d3hLIziZvHl8gW5Md9RJVs0i3SyDXfqRSyY8FLG87
-naeVbmIZlpQK8OaQc4SXVAeSFFJ28ZUFXwhl9fFMXkytrvSkudmNV5btj2pD9USi
-8Yjbuq7ZGtL4/uCvFESpCfUBE4imADamKyiM5Q6xAoGAGnYeHZzSvkA05cJSqt3j
-49qiPvGZuGhtmnwuwYAOnDfXUZ82MvFkagRy09SNwjpCg9D3cbEWzyj7lkgdeZmO
-W4xWcNRSglswBHcn/xOENpPzebMjYhbPulHh5bkxHWBj/m0/jpzsOkiUHiz819CR
-qjrfmel3S7e6kM1dMZFFOmECgYA1CVKdVxuPS45xDotYrbOV+mo1DJLNcqo+5Ahc
-kAMRMKzoVc0jX9g/blfPynddald9uxFaq3UWwXnjpxAlKvYRrJVsBs1ZBSq6psrl
-mEPoc8Ijukk6CmX8utmlddkdHbmL2oIqRWvQ/6E6EMftbxDLTsiUFB7DR2ZKQR4L
-VZhtIQKBgQCC9DZkvYmZ9IrK4o3DSMSMhqycWvrujPA8DrWXQ5jBtWknD+FQwuNc
-e+tjZcdzckzdS/aYrrt0bA3CuzcSW8CLx2gWNqKEvEVyEVP1hnx+TqSJbEtL14td
-++vFVOJHfvcX/CDxmP7IinTkNyPwiheUZAnNI8JPYpaYRtBvitg++Q==
------END RSA PRIVATE KEY-----
+      
 
     steps:
       - name: Checkout code
