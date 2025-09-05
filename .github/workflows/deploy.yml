@@ -1,35 +1,63 @@
-name: Simple Deploy to EC2
+name: Deploy to EC2
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ] # Deploy on main branch push
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repo
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.2.0
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          host: 16.16.172.140
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            # go to app directory
-            cd /home/ubuntu/car-sell-buy || exit 1
+          node-version: 20
 
-            # fetch latest code
-            git pull origin main
+      # Step 3: Add SSH key
+      - name: Add SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
-            # install dependencies
-            npm install --production
+      # Step 4: Add EC2 to known_hosts
+      - name: Add EC2 to known_hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-            # build frontend if exists
-            npm run build || true
+      # Step 5: Deploy app to EC2
+      - name: Deploy to EC2
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            echo "Navigating to app directory"
+            mkdir -p ${{ secrets.APP_DIR }}
+            cd ${{ secrets.APP_DIR }}
 
-            # restart app using PM2
+            # Clone or pull latest code
+            if [ -d ".git" ]; then
+              echo "Pulling latest changes"
+              git reset --hard
+              git pull
+            else
+              echo "Cloning repo"
+              git clone https://github.com/shivamshete92/car-sell-buy.git .
+            fi
+
+            # Install dependencies
+            echo "Installing dependencies"
+            npm install
+
+            # Build frontend (if React)
+            echo "Building app"
+            npm run build
+
+            # Restart app with PM2
+            echo "Restarting app with PM2"
             pm2 restart car-sell-buy || pm2 start npm --name "car-sell-buy" -- start
+          EOF
